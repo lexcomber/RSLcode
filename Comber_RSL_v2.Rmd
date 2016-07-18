@@ -64,7 +64,7 @@ This letter describes a generic method for calculating spatially distributed cor
 
 ## Data
 
-The data used in this analysis was developed IIASA (Austria) and is included in the `gwxtab` package. It describes land cover at 2,439 locations in the British Isles (minus the islands!) from 4 sources collapsed to 10 classes as described in Comber et al (2013): volunteered land cover data collected by the Geo-Wiki initiative (Perger et al, 2012), the GLC-2000 database (Fritz et al., 2003), the MODIS land cover product (Loveland et al., 2000) and GlobCover (Bicheron et al., 2008). The analyses in this letter compare the Geo-Wiki and Modis data. Table 1 shows the correspondence matrix of the Modis (rows) against the Geo-Wiki data (columns).
+The data used in this analysis was developed IIASA (Austria) and is included in the `gwxtab` package. It describes land cover at 2,439 locations in the British Isles (minus the islands!) from 4 sources collapsed to 10 classes as described in Comber et al (2013): volunteered land cover data collected by the Geo-Wiki initiative (Fritz et al, 2012), the GLC-2000 database (Fritz et al., 2003), the MODIS land cover product (Loveland et al., 2000) and GlobCover (Bicheron et al., 2008). The analyses in this letter compare the Geo-Wiki and Modis data. Table 1 shows the correspondence matrix of the Modis (rows) against the Geo-Wiki data (columns).
 
 
 ```{r eval=T, echo=F, message=F, warning=F, results="hide"}
@@ -100,7 +100,7 @@ f(d) = \left\{ \begin{array}{cl}
 \end{equation}
 where $d$ is the distance of the data point to the kernel centre. 
 
-Local, geographically weighted correspondence matrices were constructed to compare volunteered land cover data collected by the Geo-Wiki initiative (Perger et al, 2012) with the 3 global land cover products at each location on a XYZ grid covering the study. The study area, grid and data points are shown in Figure 1. 
+Local, geographically weighted correspondence matrices were constructed to compare volunteered land cover data collected by the Geo-Wiki initiative (Frizt et al, 2012) with the MODIS  global land cover products at 4304 locations on a hexagonal grid covering the study area. The study area, grid and data points are shown in Figure 1. 
 
 ```{r, fig.height=7, echo = F, eval=T,  message=F, warning=F, fig.cap=fig$cap("", "The study area, analysis grid in red and the data points,in blue with a tranparency term, and 2 example locations.")}
 
@@ -328,6 +328,11 @@ The GW framework for correspondence tables presented here supports greater under
 
 Finally, spatially explicit approaches such as the GW correspondence matrices allow some of the dominant assumptions of spatial non-staionarity of processes within remote sensing methods to be examined and tested. They accommodate the spatial auto-correlation found remote sensing data and analyses of many landscape processes. 
 
+# Acknowledgements
+
+The authors would like to thank Linda See, Steffen Fritz at IIASA Austria for access to the data and Myroslava Lesiv and Olha Danylo for their efforts in preparing it. We would also like to acknowledge the Spatial Accuracy organisers, Jean-Stéphane Bailly and Didier Josselin for allowing us to develop this work in preparation for a pre-conference workshop. The code and data used to construct this analysis and this paper are freely available at [https://github.com/lexcomber/RSLcode](https://github.com/lexcomber/RSLcode) - have a play! 
+
+
 # References 
 
 Bicheron, P., Defourny, P., Brockmann, C., Schouten, L., Vancutsem, C., Huc, M., Bontemps, S., Leroy, M., Achard, F., Herold, M., Ranera, F., Arino, O., 2008. Glob- Cover: Products Description and Validation Report, 18, Toulouse, France. URL: http://due.esrin.esa.int/files/GLOBCOVER_Products_Description_Validation_Report_I2.1.pdf
@@ -364,7 +369,7 @@ Loveland, T.R., Reed, B.C., Brown, J.F., Ohlen, D.O., Zhu, Z., Yang, L., Merchan
 
 McGwire, K. C., & Fisher, P. (2001). Spatially variable thematic accuracy: Beyond the confusion matrix. In C. T. Hunsaker, M. F. Goodchild, M. A. Friedl, & T. J. Case (Eds.), Spatial uncertainty in ecology: Implications for remote sensing and GIS applica- tions (pp. 308–329). New York: Springer–Verlag.
 
-Perger C, Fritz S, See L, Schill C, Van der Velde M, McCallum I et al. A campaign to collect volunteered geographic Information on land cover and human impact. In: Jekel T, Car A, Strobl J and Griesebner G, editors. GI_Forum 2012: Geovizualisation, Society and Learning. Berlin: Verlag; 2012. pp 83-91.
+Fritz, S., McCallum, I., Schill, C., Perger, C., See, L., Schepaschenko, D., van der Velde, M., Kraxner, F. and Obersteiner, M. 2012. Geo-Wiki: An online platform for land cover validation and the improvement of global land cover. Environmental Modelling and Software, 31, 110-123.
 
 Pontius Jr, R.G. and Millones, M., 2011. Death to Kappa: birth of quantity disagreement and allocation disagreement for accuracy assessment. International Journal of Remote Sensing, 32(15), pp.4407-4429.
 
