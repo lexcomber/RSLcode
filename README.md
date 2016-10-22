@@ -6,7 +6,9 @@ Code and data used to produce a recent Remote Sensing Letters submission:
 Alexis Comber1, Chris Brunsdon2, Martin Charlton2, Paul Harris3
 
 1 School of Geography, University of Leeds, Leeds, LS2 9JT, UKEmail: a.comber@leeds.ac.uk
+
 2 NUI Maynooth, Maynooth, Co Kildare, IrelandEmail: {christopher.brunsdon; martin.charlton} @nuim.ie
+
 3 Rothamsted Research, North Wyke, EX20 2SB, UKEmail: paul.harris@rothamsted.ac.uk
 
 # Abstract
