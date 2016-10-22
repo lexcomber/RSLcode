@@ -1,5 +1,5 @@
 # RSLcode
-Code and data used to produce a recent Remote Sensing Letters submission: 
+Code and data used to produce a recent Remote Sensing Letters submission. You can download the `.Rmd` file and run this in RStudio. It will download the data and develop the analyses described in the letter, as well as compiling the `PDF` document. Please contact me if you have queries! Lex (a.comber@leeds.ac.uk)
 
 *Geographically weighted correspondence matrices forlocalerror reporting and change analyses:  mapping the spatial distribution of errors and change*
 
