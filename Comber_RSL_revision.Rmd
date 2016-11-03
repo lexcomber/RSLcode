@@ -1,8 +1,11 @@
 ---
 title: "Geographically weighted correspondence matrices for *local* error reporting and change analyses: mapping the spatial distribution of errors and change"
 author: "Alexis Comber^1^, Chris Brunsdon^2^, Martin Charlton^2^, Paul Harris^3^"
-output: pdf_document
+output: 
+  pdf_document: 
+    keep_tex: yes
 geometry: margin=3cm
+keep_tex: true
 ---
 
 ^1^ School of Geography, University of Leeds, Leeds, LS2 9JT, UK
@@ -45,7 +48,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Abstract
 
-This letter describes and applies generic methods for generating local measures from the correspondence table. These were developed by integrating the functionality of two existing R packages: `gwxtab` and `diffeR`. They demonstrate how spatially explicit accuracy and error measures can be generated from local geographically weighted correspondence matrices, for example to compare classified and reference data (predicted and observed) for error analyses, and classes at times $t_1$ and $t_2$ for change analyses. The approaches in this letter extend earlier work that considered the measures derived from correspondence matrices in the context of generalized linear models and probability. Instead the methods compute local, geographically weighted correspondence matrices, from which local statistic can be calculated. In this case a selection of the overall and categorical difference measures proposed by Pontius and Milones (2011) and Pontius and Santacruz (2014), as well as spatially distributed estimates of kappa coefficients, User and Producer accuracies. The discussion reflects on the use of the correspondence matrix in remote sensing research, the philosophical underpinnings of *local* rather than *global* approaches for modelling landscape processes and the potential for policy and scientific benefits that local approaches support. 
+This letter describes and applies generic methods for generating local measures from the correspondence table. These were developed by integrating the functionality of two existing R packages: `gwxtab` and `diffeR`. They demonstrate how spatially explicit accuracy and error measures can be generated from local geographically weighted correspondence matrices, for example to compare classified and reference data (predicted and observed) for error analyses, and classes at times $t_1$ and $t_2$ for change analyses. The approaches in this letter extend earlier work that considered the measures derived from correspondence matrices in the context of generalized linear models and probability. Here the methods compute local, geographically weighted correspondence *matrices*, from which local statistics are directly calculated. In this case a selection of the overall and categorical difference measures proposed by Pontius and Milones (2011) and Pontius and Santacruz (2014), as well as spatially distributed estimates of kappa coefficients, User and Producer accuracies. The discussion reflects on the use of the correspondence matrix in remote sensing research, the philosophical underpinnings of *local* rather than *global* approaches for modelling landscape processes and the potential for policy and scientific benefits that local approaches support. 
 
 # Key Words: 
 geographically weighted; accuracy and error; correspondence matrix; validation matrix; error matrix
@@ -66,7 +69,7 @@ This letter describes a generic method for calculating spatially distributed cor
 
 ## 2.1 Data
 
-The dataset used in this analysis was collated by International Institute for Applied Systems Analysis (IIASA) in Austria and is included in the `gwxtab` package. It describes land cover at 2,439 locations in the British Isles (minus the islands!) from 4 sources collapsed to 10 classes as described in Comber et al. (2013): volunteered land cover data collected by the Geo-Wiki initiative (Fritz et al. 2012), the GLC-2000 database (Fritz et al. 2003), the MODIS land cover product (Loveland et al. 2000) and GlobCover (Bicheron et al. 2008). The analyses in this letter compare the Geo-Wiki and MODIS data which are used here to illustrate the methods being proposed. Table 1 shows the correspondence matrix of the MODIS (rows) against the Geo-Wiki data (columns). The values in the table describe the counts of pixels for each class in the first dataset that were assigned to each class in the second dataset. The off diagonal elements in the matrix summarise disagreements in the land cover classes allocated to pixels in each dataset. 
+The dataset used in this analysis was collated by International Institute for Applied Systems Analysis (IIASA) in Austria and is included in the `gwxtab` package. It describes land cover at 2,439 locations in the British Isles (minus the islands!) from 4 sources collapsed to 10 classes as described in Comber et al. (2013): volunteered land cover data collected by the Geo-Wiki initiative (Fritz et al. 2012), the GLC-2000 database (Fritz et al. 2003), the MODIS land cover product (Loveland et al. 2000) and GlobCover (Bicheron et al. 2008). The analyses in this letter compare the Geo-Wiki and MODIS data which are used here to illustrate the methods being proposed. Table 1 shows the correspondence matrix of the MODIS (rows) against the Geo-Wiki data (columns). The values in the table describe for each class, the counts of the data points in the first dataset that were assigned to each class in the second dataset. The off diagonal elements in the matrix summarise disagreements in the land cover classes allocated to pixels in each dataset. 
 
 
 ```{r eval=T, echo=F, cahce = T, message=F, warning=F, results="hide"}
@@ -80,7 +83,7 @@ class.names = c("1. Forest", "2. Shrub", "3. Grass", "4. Crop",
 rownames(tab) <- class.names
 ```
 
-\begin{center}{Table 1. The Geo-Wiki (columns) and MODIS data (rows) correspondence matrix}\end{center}
+\begin{center}{Table 1. Matrix showing the correspondence between Geo-Wiki (columns) and MODIS (rows) land cover data’ (or similar). The values are counts of the data points in each class in the Geo-Wiki data assigned to each class in the MODIS dataset.}\end{center}
 
 ```{r eval=T, echo=F, message=F, warning=F}
 kable(tab, booktabs = T, format = 'markdown') 
@@ -125,8 +128,7 @@ where $d$ is the distance of the data point to the kernel centre.
 Local, geographically weighted correspondence matrices were constructed comparing volunteered land cover data collected by the Geo-Wiki initiative (Frizt et al. 2012) with coincident MODIS global land cover at 4304 locations on a hexagonal grid covering the study area. The study area, grid and data points are shown in Figure 1, with 2 example locations labeled. Tables 2 and 3 show the *geographically weighted* correspondence matrices at these locations. As in Table 1, the values in the table describe the counts of pixels recorded in each class, in each dataset, but now just at that location. The table values are the sums of the *distance weighted* pixel counts. 
 
 
-```{r, fig.height=7, cache = T, echo = F, eval=T, dpi = 600,  message=F, warning=F, fig.cap=fig$cap("", "The study area, analysis grid in red, the data points shaded in blue with a tranparency term to show their density, and 2 example locations.")}
-
+```{r eval=T, cache = T, echo=F, message=F, warning=F}
 library(gwxtab)
 library(GISTools)
 data(lcc)
@@ -139,7 +141,12 @@ gwxt <- gwxtab_probe(dummy_xtab,adapt(bw))
 #x <- sample(1:length(lcc), 4)
 x <- c(954, 454, 2004 , 190)
 x <- hg[x,]
+```
+
+```{r "arse1",eval=T, cache = T, echo=F, message=F, warning=F, results="hide"}
 # map
+jpeg(file = "fig1.jpg", w = 480*2, h = 480*2, quality = 100, pointsize = 24)
+par(mar = c(0,0,0,0))
 plot(roiuk)
 plot(hg,pch=16,col="#A50F1580",cex=0.4,add=TRUE)
 plot(lcc, pch = 19, cex = 0.7, col = "#3182BD50", add = T)
@@ -167,6 +174,10 @@ map.scale.lex <- function (xc, yc, len, units, ndivs, subdiv = 1, tcol = "black"
     text(xc, yc - 2 * strheight(units), units, col = tcol)
 }
 map.scale.lex(x = -1017232.6, y = 6608547, 100000, "100 km", 1)
+dev.off()
+```
+
+```{r eval=T, cache = T, echo=F, message=F, warning=F}
 
 # tables
 c.i <- as.vector(co[1,])
@@ -177,13 +188,18 @@ tab.2 <- round(gwxt(c.i[1], c.i[2] ), 2)
 rownames(tab.2) <- class.names
 ```
 
-\begin{center}{Table 2. The local Geographically Weighted correspondence matrix at Location 1}\end{center}
+```{r, "arse",fig.height=7, cache = T, echo = F, eval=T, dpi = 600,  message=F, warning=F, fig.cap=fig$cap("", "The study area, analysis grid in red, the data points shaded in blue with a tranparency term to show their density, and 2 example locations.")}
+
+knitr::include_graphics("fig1.jpg")
+```
+
+\begin{center}{Table 2. The local Geographically Weighted correspondence matrix at Location 1. The values are the counts of the geographically weighted data points in each class in the Geo-Wiki data assigned to each class in the MODIS dataset.}\end{center}
 
 ```{r eval=T, echo=F, message=F, warning=F}
 kable(tab.1, booktabs = T, format = 'markdown', caption = "1") 
 ```
 
-\begin{center}{Table 3. The local Geographically Weighted correspondence matrix at Location 2}\end{center}
+\begin{center}{Table 3. The local Geographically Weighted correspondence matrix at Location 2. The values are the counts of the geographically weighted data points in each class in the Geo-Wiki data assigned to each class in the MODIS dataset.}\end{center}
 
 ```{r eval=T, echo=F, message=F, warning=F}
 kable(tab.2, booktabs = T, format = 'markdown', caption = "2") 
@@ -206,7 +222,7 @@ Measure & Function & Return value & Descriptions\\ [0.5ex]
 \hline
 Overall allocation difference & {\tt overallAllocD} & Single value & The amount of difference between \textit{observed} and \textit{predicted} data  due to the *less than maximum match* in the spatial allocation of the categories, given the proportions of the categories in both datasets.\\
 Overall difference & {\tt overallDiff} & Single value & The overall difference between tabulated \textit{observed} and \textit{predicted} data calculated from the sum of the quantity and allocation components of difference.\\
-Overall exchange difference & {\tt overallExchangeD} & Single value & Exchange is the transition from category $i$ to category $j$ in some observations and a transition from category $j$ to category $i$ in an identical number of other observations.\\
+Overall exchange difference & {\tt overallExchangeD} & Single value & Exchange is the number of transitions from category $i$ to category $j$ in some observations and from category $j$ to category $i$ in an identical number of other observations.\\
 Overall quantity difference & {\tt overallQtyD} & Single value & This is the amount of difference between the \textit{observed} variable and a \textit{predicted} variable that is due to the less than maximum match in the proportions of the categories.\\
 Overall shift difference & {\tt overallShiftD} & Single value & Shift describes to the difference remaining after subtracting Quantity difference and Exchange from the Overall difference.\\
 Category exchange difference & {\tt exchangeDj} & Value for each class & The exchange value as above at the class level.\\
@@ -223,8 +239,8 @@ Category shift difference & {\tt shiftDj} & Value for each class & The shift dif
 Although now widely discredited, many remote sensing analyses still use the estimated kappa coefficient, $\hat{\kappa}$. It is defined as follows: 
 
 \begin{equation}
-\hat{\kappa} = \frac{N\displaystyle\sum_{i=1}^{r} x_{ii} - \displaystyle\sum_{i=1}^{r} (x_{i+} * x_{+i})}
-  {N^2 - \displaystyle\sum_{i=1}^{r} (x_{i+} * x_{+i})}
+\hat{\kappa} = \frac{N\displaystyle\sum_{i=1}^{r} x_{ii} - \displaystyle\sum_{i=1}^{r} (x_{i+} \times x_{+i})}
+  {N^2 - \displaystyle\sum_{i=1}^{r} (x_{i+} \times x_{+i})}
 \label{eq:equation1}
 \end{equation}
 where $N$ is the total number of observations in the matrix, $r$ is the number of rows, $x_{ii}$ is observations in row $i$ and column $i$, $x_{i+}$ and $x_{+i}$ are the marginal totals of row $i$ and column $i$, respectively. Essentially what this does is:
@@ -454,7 +470,7 @@ Finally, spatially explicit approaches such as the GW correspondence matrices al
 
 # Acknowledgements
 
-The authors would like to thank Linda See, Steffen Fritz at IIASA Austria for access to the data and Myroslava Lesiv and Olha Danylo for their efforts in preparing it. We would also like to acknowledge the Spatial Accuracy 2016 conference organisers, Jean-Stéphane Bailly and Didier Josselin, for allowing us to develop this work in preparation for a pre-conference workshop. The code and data used to construct this analysis and this paper are freely available at [https://github.com/lexcomber/RSLcode](https://github.com/lexcomber/RSLcode) - have a play! 
+The authors would like to thank Linda See, Steffen Fritz at IIASA Austria for access to the data and Myroslava Lesiv and Olha Danylo for their efforts in preparing it. We would also like to acknowledge the Spatial Accuracy 2016 conference organisers, Jean-Stéphane Bailly and Didier Josselin, for allowing us to develop this work in preparation for a pre-conference workshop. The code, data and `RMarkdown` script used to construct this analysis and this paper are freely available at [https://github.com/lexcomber/RSLcode](https://github.com/lexcomber/RSLcode) - have a play! 
 
 
 # References 
