@@ -7,7 +7,7 @@ Alexis Comber<sup>1</sup>, Chris Brunsdon<sup>2</sup>, Martin Charlton<sup>2</su
 
 <sup>1</sup>School of Geography, University of Leeds, Leeds, LS2 9JT, UK Email: a.comber@leeds.ac.uk
 
-<sup>3</sup>NUI Maynooth, Maynooth, Co Kildare, Ireland Email: {christopher.brunsdon; martin.charlton} @nuim.ie
+<sup>2</sup>NUI Maynooth, Maynooth, Co Kildare, Ireland Email: {christopher.brunsdon; martin.charlton} @nuim.ie
 
 <sup>3</sup>Rothamsted Research, North Wyke, EX20 2SB, UK Email: paul.harris@rothamsted.ac.uk
 
