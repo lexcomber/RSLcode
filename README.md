@@ -3,7 +3,7 @@ Code and data used to produce a recent publication in Remote Sensing Letters (ht
 
 *Geographically weighted correspondence matrices forlocalerror reporting and change analyses:  mapping the spatial distribution of errors and change*
 
-Alexis Comber<sup>1</sup>, Chris Brunsdon<sup>2</sup>, Martin Charlton<sup>12</sup>, Paul Harris<sup>3</sup>
+Alexis Comber<sup>1</sup>, Chris Brunsdon<sup>2</sup>, Martin Charlton<sup>2</sup>, Paul Harris<sup>3</sup>
 
 <sup>1</sup>School of Geography, University of Leeds, Leeds, LS2 9JT, UK Email: a.comber@leeds.ac.uk
 
